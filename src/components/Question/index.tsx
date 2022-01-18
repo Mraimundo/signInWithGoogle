@@ -1,4 +1,4 @@
-import copyImg from '../../assets/images/copy.svg';
+import { ReactNode } from 'react';
 
 import './styles.scss';
 
@@ -7,24 +7,32 @@ type QuestionProps = {
   author: {
     name: string;
     avatar: string;
-  }
+  };
+  children?: ReactNode;
+  isAnswered?: boolean;
+  isHighlighted?: boolean;
 }
 
 export function Question({
   content,
-  author
+  author,
+  children,
+  isAnswered = false,
+  isHighlighted = false
 }: QuestionProps) {
 
 
   return (
-    <div className='question'>
+    <div className={`question ${isAnswered ? 'answered' : ''} ${isHighlighted ? 'highlighted' : '' && !isAnswered}`}>
       <p>{content}</p>
       <footer>
         <div className="user-info">
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </div>
-        <div></div>
+        <div>
+          {children}
+        </div>
       </footer>
     </div>
   )
